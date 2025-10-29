@@ -1,0 +1,7 @@
+// Archivo con errores
+entero 1variable     // Error: identificador inválido
+flotante total = 10.5$
+cadena texto = "Hola
+
+mientras(x < 10){ //falta cerrar la estructura
+    x = x + 1
