@@ -43,7 +43,7 @@ class Analizador:
             ('LIT_FLOTANTE', r'\d+\.\d+'),
             ('LIT_ENTERO', r'\d+'),
             ('IDENTIFICADOR', r'[a-zA-Z_]\w*'),
-            ('DELIMITADOR', r'[\(\)\{\}\,]'), # Se filtra del log
+            ('DELIMITADOR', r'[\(\)\{\}\,]'), # <-- ESTE YA NO SE FILTRA
             ('ESPACIO', r'\s+'), 
             ('ERROR', r'.'),      
         ]
@@ -53,19 +53,13 @@ class Analizador:
         self.font_boton = font.Font(family="Arial", size=10, weight="bold")
         
         
-        # --- MODIFICADO: Ruta de resultados dinámica ---
-        # Determina la ruta correcta (para .py o para .exe)
+        # --- Ruta de resultados dinámica ---
         if getattr(sys, 'frozen', False):
-            # Estamos ejecutando como .exe (compilado)
             application_path = os.path.dirname(sys.executable)
         else:
-            # Estamos ejecutando como .py (script normal)
-            # __file__ es la ruta del script .py
             application_path = os.path.dirname(os.path.abspath(__file__))
 
-        # Define la carpeta de resultados al lado del ejecutable o script
         self.ruta_resultados = os.path.join(application_path, 'Resultados')
-        # --- FIN DE LA MODIFICACIÓN ---
 
         self.default_filename = "analisis_manual"
         self.current_filename_base = self.default_filename
@@ -217,7 +211,6 @@ class Analizador:
         # Guardar resultados con nombres dinámicos
         msg_guardado = ""
         try:
-            # os.makedirs creará la carpeta "Resultados" si no existe
             os.makedirs(self.ruta_resultados, exist_ok=True)
             
             log_filename = f"{self.current_filename_base}_tokens.txt"
@@ -291,15 +284,16 @@ class Analizador:
         log_salida = []
         errores_encontrados = []
         
-        # Lista de tipos de token a ignorar en el log
-        tokens_a_ignorar_en_log = ['COMENTARIO', 'DELIMITADOR']
+        # --- MODIFICADO: Lista de tipos de token a ignorar en el log ---
+        # Se quitó 'DELIMITADOR' de esta lista
+        tokens_a_ignorar_en_log = ['COMENTARIO']
 
         # Consumimos los tokens del generador (self.tokenize)
         for tipo_token, valor_token, linea_num in self.tokenize(codigo_fuente, self.token_patterns):
             
             # --- Filtro de Log Múltiple ---
             
-            # 1. Ignorar por tipo (Comentarios, Delimitadores)
+            # 1. Ignorar por tipo (Solo Comentarios)
             if tipo_token in tokens_a_ignorar_en_log:
                 continue
                 
@@ -326,4 +320,4 @@ if __name__ == "__main__":
     """
     root = tk.Tk()
     app = Analizador(root)
-    root.mainloop()pip install pyinstaller
+    root.mainloop()
