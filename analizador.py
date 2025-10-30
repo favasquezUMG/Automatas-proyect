@@ -263,37 +263,28 @@ class Analizador:
         log_salida = []
         errores_encontrados = []
         
-        # Esta lista es solo para tokens que son válidos pero no queremos en el log
+        #ignorar en el log los comentarios
         tokens_a_ignorar_en_log = ['COMENTARIO']
 
-        # Consumimos los tokens del generador (self.tokenize)
         for tipo_token, valor_token, linea_num in self.tokenize(codigo_fuente, self.token_patterns):
-            
-            # --- MODIFICADO: Manejo de errores primero ---
-            # Si el token es de tipo error, se registra en errores y se salta
             
             if tipo_token == 'ERROR_PALABRA':
                 error_msg = f"Error Léxico en línea {linea_num}: Palabra no reconocida '{valor_token}' (no es una palabra reservada)."
                 errores_encontrados.append(error_msg)
-                continue # No agregar al log de tokens
+                continue
             
             elif tipo_token == 'ERROR_SIMBOLO':
                 error_msg = f"Error Léxico en línea {linea_num}: Carácter inesperado '{valor_token}' no reconocido."
                 errores_encontrados.append(error_msg)
-                continue # No agregar al log de tokens
+                continue
 
-            # --- Filtro de Log Múltiple (para tokens válidos) ---
-            
-            # 1. Ignorar por tipo (Solo Comentarios)
             if tipo_token in tokens_a_ignorar_en_log:
                 continue
                 
-            # 2. Ignorar OP_RELACIONAL si el valor es '' (dos comillas) o "" (vacío)
             if tipo_token == 'OP_RELACIONAL' and (valor_token == "''" or valor_token == ""):
                 continue
-            # --- FIN DEL FILTRO ---
 
-            # Si pasó todos los filtros y no es error, se añade al log
+            # Si pasa todos los filtros y no da error, se añade al log
             log_entry = f"Línea {linea_num}: [Tipo: {tipo_token}, Valor: {valor_token}]"
             log_salida.append(log_entry)
         
@@ -301,9 +292,6 @@ class Analizador:
 
 
 if __name__ == "__main__":
-    """
-    Punto de entrada principal para iniciar la aplicación GUI.
-    """
     root = tk.Tk()
     app = Analizador(root)
     root.mainloop()
