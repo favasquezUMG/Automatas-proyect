@@ -1,0 +1,7 @@
+Error Léxico en línea 3: Carácter inesperado '$' no reconocido.
+Error Léxico en línea 4: Carácter inesperado '@' no reconocido.
+Error Léxico en línea 6: Carácter inesperado '"' no reconocido.
+Error Léxico en línea 6: Carácter inesperado '"' no reconocido.
+Error Léxico en línea 9: Carácter inesperado '°' no reconocido.
+Error Léxico en línea 9: Carácter inesperado '°' no reconocido.
+Error Léxico en línea 11: Carácter inesperado '^' no reconocido.
