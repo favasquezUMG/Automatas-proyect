@@ -1,0 +1,34 @@
+Error Léxico en línea 4: Palabra no reconocida 'contador' (no es una palabra reservada).
+Error Léxico en línea 5: Palabra no reconocida 'PI_VALOR' (no es una palabra reservada).
+Error Léxico en línea 6: Palabra no reconocida 'SALUDO_INICIAL' (no es una palabra reservada).
+Error Léxico en línea 7: Palabra no reconocida 'estadoActivo' (no es una palabra reservada).
+Error Léxico en línea 9: Palabra no reconocida 'SALUDO_INICIAL' (no es una palabra reservada).
+Error Léxico en línea 9: Palabra no reconocida '_contador_global' (no es una palabra reservada).
+Error Léxico en línea 12: Palabra no reconocida 'varA' (no es una palabra reservada).
+Error Léxico en línea 13: Palabra no reconocida 'varB' (no es una palabra reservada).
+Error Léxico en línea 14: Palabra no reconocida 'varC' (no es una palabra reservada).
+Error Léxico en línea 16: Palabra no reconocida 'resultadoCalculo' (no es una palabra reservada).
+Error Léxico en línea 16: Palabra no reconocida 'varA' (no es una palabra reservada).
+Error Léxico en línea 16: Palabra no reconocida 'varB' (no es una palabra reservada).
+Error Léxico en línea 16: Palabra no reconocida 'varC' (no es una palabra reservada).
+Error Léxico en línea 16: Palabra no reconocida 'PI_VALOR' (no es una palabra reservada).
+Error Léxico en línea 17: Palabra no reconocida 'resultadoCalculo' (no es una palabra reservada).
+Error Léxico en línea 20: Palabra no reconocida 'varA' (no es una palabra reservada).
+Error Léxico en línea 20: Palabra no reconocida 'varB' (no es una palabra reservada).
+Error Léxico en línea 20: Palabra no reconocida 'varB' (no es una palabra reservada).
+Error Léxico en línea 20: Palabra no reconocida 'varC' (no es una palabra reservada).
+Error Léxico en línea 20: Palabra no reconocida 'PI_VALOR' (no es una palabra reservada).
+Error Léxico en línea 21: Palabra no reconocida 'msg' (no es una palabra reservada).
+Error Léxico en línea 22: Palabra no reconocida 'msg' (no es una palabra reservada).
+Error Léxico en línea 25: Palabra no reconocida 'i' (no es una palabra reservada).
+Error Léxico en línea 26: Palabra no reconocida 'i' (no es una palabra reservada).
+Error Léxico en línea 27: Palabra no reconocida 'i' (no es una palabra reservada).
+Error Léxico en línea 28: Palabra no reconocida 'i' (no es una palabra reservada).
+Error Léxico en línea 28: Palabra no reconocida 'i' (no es una palabra reservada).
+Error Léxico en línea 30: Palabra no reconocida 'i' (no es una palabra reservada).
+Error Léxico en línea 36: Palabra no reconocida 'msg_error' (no es una palabra reservada).
+Error Léxico en línea 37: Palabra no reconocida 'msg_error' (no es una palabra reservada).
+Error Léxico en línea 40: Palabra no reconocida 'estadoActivo' (no es una palabra reservada).
+Error Léxico en línea 48: Carácter inesperado '`' no reconocido.
+Error Léxico en línea 48: Carácter inesperado '`' no reconocido.
+Error Léxico en línea 48: Carácter inesperado '`' no reconocido.

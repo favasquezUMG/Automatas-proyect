@@ -1,0 +1,2 @@
+Error Léxico en línea 13: Palabra no reconocida 'buenos' (no es una palabra reservada).
+Error Léxico en línea 13: Palabra no reconocida 'dias' (no es una palabra reservada).

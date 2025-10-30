@@ -1,0 +1,10 @@
+
+entero a = 10
+flotante b = 20.5
+
+si (a >= b) {
+  mostrar 'A es mayor o igual'
+} sino {
+  mostrar 'B es mayor'
+}
+

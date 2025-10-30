@@ -1,0 +1,64 @@
+
+				
+// Cadebas de texto
+entero a
+flotante b
+cadena nombre = 'Juan'
+mostrar nombre
+
+
+// Operaciones
+entero x
+flotante y
+x = 10
+y = 5.5
+
+flotante resultado1 = x + y
+entero resultado2 = x - y
+entero resultado3 = x * y
+flotante resultado4 = x / y
+
+comparar operacion = x >= y
+
+mostrar resultado1, resultado2, resultado3, resultado4
+mostrar comparar
+
+
+// Estructura condicional
+entero edad = 18
+
+si (edad <= 18) {
+    cadena msg = 'Menor de edad'
+} sino {
+    cadena msg = 'Mayor de edad'
+}
+mostrar msg
+
+si(!edad){
+   cadena error = 'No existe la variable edad'
+}
+
+
+//Bucle
+entero contador = 0
+
+mientras (contador < 5) {
+    contador = contador + 1
+}
+mostrar contador
+mientras (contador == 5){
+    contador = contador - 1
+}
+mostrar contador
+mientras (contador == 4 || contador == 3){
+    contador = contador - 1
+}
+mostrar contador
+mientras (contador == 2 && contador != 0){
+    contador = contador - 1
+}
+mostrar contador
+mientras (contador > 0){
+    contador = contador - 1
+}
+mostrar contador
