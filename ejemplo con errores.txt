@@ -1,7 +1,11 @@
 // Archivo con errores
-entero 1variable     // Error: identificador inválido
+entero variable
 flotante total = 10.5$
-cadena texto = "Hola
+cadena texto = @
 
-mientras(x < 10){ //falta cerrar la estructura
-    x = x + 1
+"Buenas"
+
+cadenta = '°°'
+cadena = °°
+
+-2^3

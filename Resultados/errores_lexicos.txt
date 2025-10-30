@@ -1,2 +1,0 @@
-Error Léxico en línea 3: Carácter inesperado '$' no reconocido.
-Error Léxico en línea 4: Carácter inesperado '"' no reconocido.

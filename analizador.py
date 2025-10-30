@@ -46,7 +46,7 @@ class Analizador:
             ('LIT_CADENA', r"'[^']*'"), 
             ('LIT_FLOTANTE', r'\d+\.\d+'),
             ('LIT_ENTERO', r'\d+'),
-            # ('IDENTIFICADOR', r'[a-zA-Z_]\w*'), # <-- ESTA LÍNEA SE ELIMINA
+            ('IDENTIFICADOR', r'[a-zA-Z_]\w*'),
             ('DELIMITADOR', r'[\(\)\{\}\,]'),
             ('ESPACIO', r'\s+'), 
             
