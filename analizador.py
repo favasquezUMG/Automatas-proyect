@@ -7,20 +7,15 @@ from tkinter import filedialog, scrolledtext, PanedWindow, messagebox, font
 class Analizador: 
 
     def __init__(self, master):
-        """
-        Constructor de la aplicación.
-        Inicializa la GUI y configura los widgets con el nuevo diseño.
-        """
         self.master = master
         master.title("Analizador Léxico (v1.0)")
         master.geometry("1100x750")
 
-        # --- Paleta de Colores ---
         self.COLOR_FONDO_VENTANA = "#2c3e50"
         self.COLOR_FONDO_FRAME = "#34495e"
         self.COLOR_TEXTO_TITULO = "#ecf0f1"
         self.COLOR_TEXTO_NORMAL = "#000000"
-        self.COLOR_FONDO_WIDGET = "#f0f0f0" # Gris pálido
+        self.COLOR_FONDO_WIDGET = "#f0f0f0"
         self.COLOR_BOTON_CARGAR = "#3498db"
         self.COLOR_BOTON_ANALIZAR = "#2ecc71"
         self.COLOR_BOTON_LIMPIAR = "#e74c3c"
@@ -32,37 +27,30 @@ class Analizador:
 
         master.configure(bg=self.COLOR_FONDO_VENTANA)
 
-        # --- MODIFICADO: Definición de Patrones de Tokens ---
-        # El orden es crucial.
-        # 1. Se definen los tokens válidos (palabras reservadas, operadores, etc.)
-        # 2. Se elimina el 'IDENTIFICADOR' genérico.
-        # 3. Se añaden reglas de ERROR específicas al final para atrapar lo que sobre.
         self.token_patterns = [
-            ('COMENTARIO', r'//.*'), # Se filtra del log
-            ('PALABRA_RESERVADA', r'\b(entero|flotante|cadena|mientras|mostrar|comparar|si|sino)\b'), # Debe ir ANTES de ERROR_PALABRA
+            ('COMENTARIO', r'//.*'), # Se filtran del log
+            ('PALABRA_RESERVADA', r'\b(entero|flotante|cadena|mientras|mostrar|comparar|si|sino)\b'),
             ('OP_LOGICO', r'(&&|\|\||!)'),
-            ('OP_RELACIONAL', r'(==|>=|<=|!=|''|>|<|=)'), # '' se filtra del log
-            ('OP_ARITMETICO', r'[\+\-\*\/]'),
+            ('OP_RELACIONAL', r'(==|>=|<=|!=|''|>|<|=)'), #se filtra del log las ''
+            ('OP_ARITMETICO', r'[\+\-\*\/\^]'),
             ('LIT_CADENA', r"'[^']*'"), 
             ('LIT_FLOTANTE', r'\d+\.\d+'),
             ('LIT_ENTERO', r'\d+'),
             ('IDENTIFICADOR', r'[a-zA-Z_]\w*'),
             ('DELIMITADOR', r'[\(\)\{\}\,]'),
             ('ESPACIO', r'\s+'), 
-            
-            # --- Nuevas Reglas de Error ---
-            # Atrapa cualquier "palabra" que no sea una palabra reservada
+            #Para marcar cualquier "palabra" que no sea una palabra reservada
             ('ERROR_PALABRA', r'[a-zA-Z_]\w*'),  
-            # Atrapa cualquier otro carácter suelto no reconocido
+            #Para marcar cualquier otro signo reconocido
             ('ERROR_SIMBOLO', r'.'), 
         ]
         
-        # --- Configuración de la GUI ---
+        #Empieza lo del Frontend
         self.default_font = font.Font(family="Consolas", size=11)
         self.font_boton = font.Font(family="Arial", size=10, weight="bold")
         
         
-        # --- Ruta de resultados dinámica ---
+        #Para tener una guardada de resultados dinámica
         if getattr(sys, 'frozen', False):
             application_path = os.path.dirname(sys.executable)
         else:
@@ -73,7 +61,7 @@ class Analizador:
         self.default_filename = "analisis_manual"
         self.current_filename_base = self.default_filename
 
-        # --- Panel de Botones Superiores ---
+        #Botones
         frame_botones = tk.Frame(master, pady=10, bg=self.COLOR_FONDO_VENTANA)
         frame_botones.pack(fill=tk.X)
         
@@ -98,19 +86,17 @@ class Analizador:
                                 padx=10, pady=5)
         self.btn_clear.pack(side=tk.LEFT, padx=5)
 
-        # --- Paneles Principales (Horizontal) ---
+        #Paneles
         self.paned_window_horizontal = PanedWindow(master, orient=tk.HORIZONTAL, 
                                                     sashrelief=tk.RAISED, bg=self.COLOR_FONDO_FRAME,
                                                     borderwidth=0)
         self.paned_window_horizontal.pack(fill=tk.BOTH, expand=True, padx=10, pady=(0, 10))
 
-        # --- Panel Izquierdo (Vertical) ---
         frame_izquierdo_vertical = PanedWindow(self.paned_window_horizontal, orient=tk.VERTICAL, 
                                                 sashrelief=tk.RAISED, bg=self.COLOR_FONDO_FRAME,
                                                 borderwidth=0)
         self.paned_window_horizontal.add(frame_izquierdo_vertical, width=550)
 
-        # --- Panel Izquierdo-Superior (Código Fuente) ---
         frame_codigo_fuente = tk.Frame(frame_izquierdo_vertical, bg=self.COLOR_FONDO_FRAME,
                                         padx=5, pady=5)
         tk.Label(frame_codigo_fuente, text="Código Fuente", 
@@ -124,7 +110,6 @@ class Analizador:
         self.text_input.pack(fill=tk.BOTH, expand=True)
         frame_izquierdo_vertical.add(frame_codigo_fuente, height=400)
 
-        # --- Panel Izquierdo-Inferior (Errores Léxicos) ---
         frame_errores = tk.Frame(frame_izquierdo_vertical, bg=self.COLOR_FONDO_FRAME,
                                     padx=5, pady=5)
         tk.Label(frame_errores, text="Errores Léxicos", 
@@ -138,7 +123,6 @@ class Analizador:
         self.text_errores.pack(fill=tk.BOTH, expand=True)
         frame_izquierdo_vertical.add(frame_errores)
 
-        # --- Panel Derecho (Log de Tokens) ---
         frame_log = tk.Frame(self.paned_window_horizontal, bg=self.COLOR_FONDO_FRAME,
                                 padx=5, pady=5)
         tk.Label(frame_log, text="Log de Tokens", 
@@ -152,12 +136,9 @@ class Analizador:
         self.text_log.pack(fill=tk.BOTH, expand=True)
         self.paned_window_horizontal.add(frame_log)
 
-    # --- Métodos de la Aplicación ---
 
+    #Metodos
     def cargar_archivo(self):
-        """
-        Abre un diálogo para que el usuario seleccione un archivo.
-        """
         filepath = filedialog.askopenfilename(
             title="Seleccionar archivo de código fuente",
             filetypes=(("Archivos de Texto", "*.txt"), ("Todos los archivos", "*.*"))
@@ -179,10 +160,7 @@ class Analizador:
         except Exception as e:
             messagebox.showerror("Error al leer archivo", f"No se pudo leer el archivo:\n{e}")
 
-    def limpiar_campos(self, limpiar_input=True):
-        """
-        Limpia el contenido de todas las áreas de texto.
-        """
+    def limpiar_campos(self, limpiar_input=True): #Limpia toda la interfaz
         if limpiar_input:
             self.text_input.delete("1.0", tk.END)
             self.current_filename_base = self.default_filename
@@ -198,9 +176,6 @@ class Analizador:
 
 
     def ejecutar_analisis(self):
-        """
-        Función principal que se llama al presionar el botón "Analizar".
-        """
         self.text_log.config(state=tk.NORMAL)
         self.text_errores.config(state=tk.NORMAL)
         self.text_log.delete("1.0", tk.END)
@@ -217,7 +192,7 @@ class Analizador:
 
         log_salida, errores_encontrados = self.analizar(codigo_fuente)
         
-        # Guardar resultados con nombres dinámicos
+        # Guardar resultados con los nombres dinámicos
         msg_guardado = ""
         try:
             os.makedirs(self.ruta_resultados, exist_ok=True)
@@ -247,7 +222,7 @@ class Analizador:
             messagebox.showerror("Error al guardar archivos", 
                                 f"No se pudieron guardar los resultados en:\n{self.ruta_resultados}\n\nError: {e}")
         
-        # Mostrar resultados en los cuadros de texto
+        # Mostrar resultados en los ventanas
         if log_salida:
             self.text_log.insert(tk.END, '\n'.join(log_salida))
         else:
@@ -267,12 +242,9 @@ class Analizador:
         self.text_errores.config(state=tk.DISABLED)
 
 
-    # --- Lógica del Analizador ---
+    #Logica para realizar los tokens
 
     def tokenize(self, codigo_fuente, token_patterns):
-        """
-        Generador de tokens.
-        """
         regex_combinado = re.compile('|'.join(f'(?P<{tipo}>{patron})' for tipo, patron in token_patterns))
         linea_actual = 1
         
@@ -286,11 +258,8 @@ class Analizador:
             
             yield tipo_token, valor_token, linea_actual
 
-    # --- MÉTODO MODIFICADO ---
+    #logica para analizar el archivo de texto ingresado
     def analizar(self, codigo_fuente):
-        """
-        Analizador Léxico principal.
-        """
         log_salida = []
         errores_encontrados = []
         

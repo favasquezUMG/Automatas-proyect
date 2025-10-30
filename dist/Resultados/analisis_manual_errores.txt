@@ -1,0 +1,1 @@
+Error Léxico en línea 1: Carácter inesperado '^' no reconocido.
